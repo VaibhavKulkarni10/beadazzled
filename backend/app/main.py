@@ -20,3 +20,12 @@ app.include_router(analysis.router, prefix="/api")
 @app.get("/")
 async def root():
     return {"status": "Beadazzled API is running"}
+
+
+@app.get("/test-key")
+async def test_key():
+    import os
+    key = os.getenv("ANTHROPIC_API_KEY")
+    if key:
+        return {"key_loaded": True, "key_prefix": key[:10]}
+    return {"key_loaded": False}
