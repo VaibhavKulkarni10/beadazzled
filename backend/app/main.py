@@ -29,3 +29,19 @@ async def test_key():
     if key:
         return {"key_loaded": True, "key_prefix": key[:10]}
     return {"key_loaded": False}
+
+
+@app.get("/test-claude")
+async def test_claude():
+    import os
+    import anthropic
+    try:
+        client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        message = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=10,
+            messages=[{"role": "user", "content": "say hi"}]
+        )
+        return {"success": True, "response": message.content[0].text}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
