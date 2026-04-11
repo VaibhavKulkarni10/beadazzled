@@ -7,15 +7,3 @@ numpy==1.26.4
 anthropic==0.88.0
 python-dotenv==1.2.2
 requests==2.33.1
-EOFcd ~/Desktop/Beadazzled/backend
-
-cat > requirements.txt << 'EOF'
-fastapi==0.135.3
-uvicorn==0.42.0
-python-multipart==0.0.22
-mediapipe==0.10.33
-opencv-contrib-python-headless==4.10.0.84
-numpy==1.26.4
-anthropic==0.88.0
-python-dotenv==1.2.2
-requests==2.33.1
