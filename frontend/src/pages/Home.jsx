@@ -23,16 +23,18 @@ export default function Home() {
 
       {/* Split screen */}
       <div style={{
-        flex: 1,
-        display: 'flex',
-        overflow: 'hidden',
-      }}>
+  flex: 1,
+  display: 'flex',
+  flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+  overflow: 'auto',
+}}>
 
         {/* Left — Design */}
         <div
           onClick={() => handleClick('design')}
           style={{
-            flex: expanding === 'design' ? 4 : expanding === 'tryon' ? 0 : 1,
+            flex: 1,
+            minHeight: window.innerWidth < 768 ? '50vh' : 'auto',
             background: '#060D1F',
             display: 'flex',
             flexDirection: 'column',
@@ -136,7 +138,8 @@ export default function Home() {
         <div
           onClick={() => handleClick('tryon')}
           style={{
-            flex: expanding === 'tryon' ? 4 : expanding === 'design' ? 0 : 1,
+            flex: 1,
+minHeight: window.innerWidth < 768 ? '50vh' : 'auto',
             background: '#0B1C3D',
             display: 'flex',
             flexDirection: 'column',
