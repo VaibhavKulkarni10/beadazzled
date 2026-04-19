@@ -12,6 +12,22 @@ export default function Home() {
     }, 600);
   };
 
+  const halfStyle = (mode, bg) => ({
+    flex: expanding === mode ? 4 : expanding && expanding !== mode ? 0 : 1,
+    background: bg,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: '0 6%',
+    paddingTop: '12vh',
+    paddingBottom: '6vh',
+    cursor: 'pointer',
+    transition: 'flex 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
+    opacity: expanding && expanding !== mode ? 0 : 1,
+    position: 'relative',
+    overflow: 'hidden',
+  });
+
   return (
     <div style={{
       height: '100vh',
@@ -23,209 +39,128 @@ export default function Home() {
 
       {/* Split screen */}
       <div style={{
-  flex: 1,
-  display: 'flex',
-  flexDirection: window.innerWidth < 768 ? 'column' : 'row',
-  overflow: 'auto',
-}}>
+        flex: 1,
+        display: 'flex',
+        overflow: 'hidden',
+      }}>
 
         {/* Left — Design */}
-        <div
-          onClick={() => handleClick('design')}
-          style={{
-            flex: 1,
-            minHeight: window.innerWidth < 768 ? '50vh' : 'auto',
-            background: '#060D1F',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            padding: '0 10%',
-            cursor: 'pointer',
-            transition: 'flex 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
-            opacity: expanding === 'tryon' ? 0 : 1,
-            position: 'relative',
-            overflow: 'hidden',
-            borderRight: '1px solid rgba(126,179,232,0.08)',
-          }}
-        >
+        <div onClick={() => handleClick('design')} style={halfStyle('design', '#060D1F')}>
+          
           {/* Decorative rings */}
           <div style={{
             position: 'absolute', top: '-40px', left: '-40px',
             width: '180px', height: '180px', borderRadius: '50%',
-            border: '1px solid rgba(126,179,232,0.08)',
-            pointerEvents: 'none',
-          }} />
-          <div style={{
-            position: 'absolute', bottom: '-60px', right: '-60px',
-            width: '240px', height: '240px', borderRadius: '50%',
-            border: '1px solid rgba(126,179,232,0.06)',
-            pointerEvents: 'none',
+            border: '1px solid rgba(126,179,232,0.08)', pointerEvents: 'none',
           }} />
 
-          {/* Content wrapper */}
-          <div style={{
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '32px',
-  zIndex: 1,
-  maxWidth: '360px',
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  left: '10%',
-}}>
-            <div>
-              <p style={{
-                fontSize: '10px', letterSpacing: '3px',
-                textTransform: 'uppercase', color: '#7EB3E8',
-                fontWeight: 500, marginBottom: '24px',
-                animation: 'fadeUp 0.6s ease both',
-              }}>
-                Step 01
-              </p>
-              <div style={{
-                fontSize: '48px', marginBottom: '20px',
-                animation: 'fadeUp 0.6s ease 0.1s both',
-              }}>
-                🎨
-              </div>
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: '40px', fontWeight: 300,
-                color: '#E8EEFF', lineHeight: 1.1,
-                marginBottom: '16px',
-                animation: 'fadeUp 0.6s ease 0.15s both',
-              }}>
-                Design<br />Me<br />Something
-              </h2>
-              <p style={{
-                fontSize: '13px', color: '#4A6A9A',
-                lineHeight: 1.7,
-                animation: 'fadeUp 0.6s ease 0.2s both',
-              }}>
-                Camera-based AI jewelry design tailored to your face shape, skin tone & colouring
-              </p>
-            </div>
-
-            <div style={{
-              display: 'flex', flexWrap: 'wrap', gap: '8px',
-              animation: 'fadeUp 0.6s ease 0.25s both',
+          {/* Top section — label + icon + title */}
+          <div>
+            <p style={{
+              fontSize: '10px', letterSpacing: '3px',
+              textTransform: 'uppercase', color: '#7EB3E8',
+              fontWeight: 500, marginBottom: '20px',
             }}>
+              Step 01
+            </p>
+            <div style={{ fontSize: '36px', marginBottom: '16px' }}>🎨</div>
+            <h2 style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: 'clamp(24px, 4vw, 40px)',
+              fontWeight: 300, color: '#E8EEFF',
+              lineHeight: 1.1, marginBottom: '14px',
+            }}>
+              Design<br />Me<br />Something
+            </h2>
+            <p style={{
+              fontSize: 'clamp(11px, 1.5vw, 13px)',
+              color: '#4A6A9A', lineHeight: 1.6,
+            }}>
+              Camera-based AI jewelry design tailored to your face shape, skin tone & colouring
+            </p>
+          </div>
+
+          {/* Bottom section — tags + cta */}
+          <div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
               {['Face Analysis', 'Skin Tone', 'Tutorial'].map(tag => (
                 <span key={tag} style={{
-                  fontSize: '10px', padding: '5px 12px',
+                  fontSize: '10px', padding: '4px 10px',
                   background: 'rgba(126,179,232,0.08)',
                   color: '#7EB3E8', borderRadius: '99px',
                   border: '1px solid rgba(126,179,232,0.2)',
-                  letterSpacing: '0.5px',
+                  letterSpacing: '0.5px', whiteSpace: 'nowrap',
                 }}>{tag}</span>
               ))}
             </div>
-
             <p style={{
               fontSize: '11px', color: '#7EB3E8',
               fontWeight: 500, letterSpacing: '1px',
-              animation: 'fadeUp 0.6s ease 0.3s both',
             }}>
               Tap to begin →
             </p>
           </div>
         </div>
 
+        {/* Divider */}
+        <div style={{
+          width: '1px',
+          background: 'rgba(126,179,232,0.08)',
+          flexShrink: 0,
+        }} />
+
         {/* Right — Try On */}
-        <div
-          onClick={() => handleClick('tryon')}
-          style={{
-            flex: 1,
-minHeight: window.innerWidth < 768 ? '50vh' : 'auto',
-            background: '#0B1C3D',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            padding: '0 10%',
-            cursor: 'pointer',
-            transition: 'flex 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
-            opacity: expanding === 'design' ? 0 : 1,
-            position: 'relative',
-            overflow: 'hidden',
-          }}
-        >
+        <div onClick={() => handleClick('tryon')} style={halfStyle('tryon', '#0B1C3D')}>
+
           {/* Decorative rings */}
           <div style={{
             position: 'absolute', top: '-40px', right: '-40px',
             width: '180px', height: '180px', borderRadius: '50%',
-            border: '1px solid rgba(168,200,240,0.08)',
-            pointerEvents: 'none',
-          }} />
-          <div style={{
-            position: 'absolute', bottom: '-60px', left: '-60px',
-            width: '240px', height: '240px', borderRadius: '50%',
-            border: '1px solid rgba(168,200,240,0.05)',
-            pointerEvents: 'none',
+            border: '1px solid rgba(168,200,240,0.08)', pointerEvents: 'none',
           }} />
 
-          {/* Content wrapper */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '32px',
-            zIndex: 1,
-            maxWidth: '360px',
-          }}>
-            <div>
-              <p style={{
-                fontSize: '10px', letterSpacing: '3px',
-                textTransform: 'uppercase', color: '#A8C8F0',
-                fontWeight: 500, marginBottom: '24px',
-                animation: 'fadeUp 0.6s ease 0.05s both',
-              }}>
-                Step 02
-              </p>
-              <div style={{
-                fontSize: '48px', marginBottom: '20px',
-                animation: 'fadeUp 0.6s ease 0.15s both',
-              }}>
-                🪞
-              </div>
-              <h2 style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontSize: '40px', fontWeight: 300,
-                color: '#E8EEFF', lineHeight: 1.1,
-                marginBottom: '16px',
-                animation: 'fadeUp 0.6s ease 0.2s both',
-              }}>
-                How Does<br />This<br />Look?
-              </h2>
-              <p style={{
-                fontSize: '13px', color: '#4A6A9A',
-                lineHeight: 1.7,
-                animation: 'fadeUp 0.6s ease 0.25s both',
-              }}>
-                Wear your creation and get honest AI feedback — plus your next design idea
-              </p>
-            </div>
-
-            <div style={{
-              display: 'flex', flexWrap: 'wrap', gap: '8px',
-              animation: 'fadeUp 0.6s ease 0.3s both',
+          {/* Top section — label + icon + title */}
+          <div>
+            <p style={{
+              fontSize: '10px', letterSpacing: '3px',
+              textTransform: 'uppercase', color: '#A8C8F0',
+              fontWeight: 500, marginBottom: '20px',
             }}>
+              Step 02
+            </p>
+            <div style={{ fontSize: '36px', marginBottom: '16px' }}>🪞</div>
+            <h2 style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: 'clamp(24px, 4vw, 40px)',
+              fontWeight: 300, color: '#E8EEFF',
+              lineHeight: 1.1, marginBottom: '14px',
+            }}>
+              How Does<br />This<br />Look?
+            </h2>
+            <p style={{
+              fontSize: 'clamp(11px, 1.5vw, 13px)',
+              color: '#4A6A9A', lineHeight: 1.6,
+            }}>
+              Wear your creation and get honest AI feedback — plus your next design idea
+            </p>
+          </div>
+
+          {/* Bottom section — tags + cta */}
+          <div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
               {['Style Rating', 'Feedback', 'Next Design'].map(tag => (
                 <span key={tag} style={{
-                  fontSize: '10px', padding: '5px 12px',
+                  fontSize: '10px', padding: '4px 10px',
                   background: 'rgba(168,200,240,0.08)',
                   color: '#A8C8F0', borderRadius: '99px',
                   border: '1px solid rgba(168,200,240,0.2)',
-                  letterSpacing: '0.5px',
+                  letterSpacing: '0.5px', whiteSpace: 'nowrap',
                 }}>{tag}</span>
               ))}
             </div>
-
             <p style={{
               fontSize: '11px', color: '#A8C8F0',
               fontWeight: 500, letterSpacing: '1px',
-              animation: 'fadeUp 0.6s ease 0.35s both',
             }}>
               Tap to begin →
             </p>
@@ -236,11 +171,12 @@ minHeight: window.innerWidth < 768 ? '50vh' : 'auto',
       {/* Brand footer */}
       <div style={{
         background: '#7EB3E8',
-        padding: '14px 24px',
+        padding: '12px 24px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '16px',
+        flexShrink: 0,
       }}>
         <div style={{ height: '1px', flex: 1, background: 'rgba(6,13,31,0.15)' }} />
         <p style={{
