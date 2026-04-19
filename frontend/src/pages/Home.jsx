@@ -76,7 +76,7 @@ export default function Home() {
               fontSize: 'clamp(11px, 1.5vw, 13px)',
               color: '#4A6A9A', lineHeight: 1.6,
             }}>
-              Camera-based AI jewelry design tailored to your face shape, skin tone & colouring
+              Camera-based jewelry design tailored to your face shape, skin tone & colouring
             </p>
           </div>
 
@@ -141,7 +141,7 @@ export default function Home() {
               fontSize: 'clamp(11px, 1.5vw, 13px)',
               color: '#4A6A9A', lineHeight: 1.6,
             }}>
-              Wear your creation and get honest AI feedback — plus your next design idea
+              Wear your creation or existing jewelry and get honest AI feedback — plus your next design idea
             </p>
           </div>
 
