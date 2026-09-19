@@ -51,7 +51,7 @@ Look at their photo and provide a specific, detailed {jewelry_type} design recom
 Be specific and practical. Tailor everything to {gender} wearing a {jewelry_type}."""
 
     message = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-5",
         max_tokens=2048,
         messages=[
             {
@@ -126,7 +126,7 @@ Look at this photo carefully. The person is wearing jewelry. Please provide:
 Be honest but encouraging. This feedback should help them grow as a jewelry maker."""
 
     message = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-5",
         max_tokens=2048,
         messages=[
             {
