@@ -31,24 +31,35 @@ I have analysed this person's features using computer vision:
 - Face shape: {face_shape}
 - Skin tone: {skin_tone}
 - Undertone: {undertone} ({undertone_description})
-- Average skin RGB: {avg_rgb}
 - Jewelry type requested: {jewelry_type}
 
-Look at their photo and provide a specific, detailed {jewelry_type} design recommendation. Include:
+Look at their photo and provide a jewelry recommendation in EXACTLY this structure:
 
-1. **Recommended Design** — describe a specific beaded {jewelry_type} that would suit them perfectly.
+**DESIGN NAME**
+One catchy name for the design (e.g. "The Golden Hour Bracelet")
 
-2. **Bead Colours** — list 3-5 specific bead colours that complement their skin tone and undertone. Include hex colour codes.
+**DESIGN DESCRIPTION**
+2-3 sentences only. What it looks like, why it suits them. No more.
 
-3. **Bead Types & Materials** — specific bead types and materials suited for a {jewelry_type}.
+**BEAD COLOURS**
+List exactly 4-5 colours. Each on its own line in this format:
+Name — #HEXCODE — one sentence why it suits them
 
-4. **Pattern & Design Details** — describe the pattern, size, and arrangement in enough detail to make it.
+**BEAD PATTERN**
+List the exact sequence of beads for one repeat. Each bead on its own line:
+- Bead name (size) — #HEXCODE
+End with: Repeat X times for full {jewelry_type}
 
-5. **How To Make It** — step by step tutorial for creating this specific {jewelry_type}. Be beginner friendly.
+**MATERIALS**
+Bullet list only. Max 6 items. Just the names, no explanation.
 
-6. **Why This Works** — explain why this design flatters their face shape and skin tone.
+**TUTORIAL**
+Numbered steps only. Max 8 steps. One sentence per step. Beginner friendly.
 
-Be specific and practical. Tailor everything to {gender} wearing a {jewelry_type}."""
+**WHY THIS WORKS**
+3 sentences maximum explaining why this suits their face shape and skin tone.
+
+Be concise. No waffle. Every word should earn its place."""
 
     message = client.messages.create(
         model="claude-sonnet-4-5",

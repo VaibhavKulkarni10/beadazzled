@@ -82,12 +82,18 @@ body {
 
 /* Inner pages */
 .page {
-  max-width: 480px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 24px 20px 40px;
+  padding: 24px 32px 40px;
   min-height: 100vh;
   height: 100vh;
   overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 16px 40px;
+  }
 }
 
 /* Cards */
