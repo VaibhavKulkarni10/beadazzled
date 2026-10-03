@@ -164,6 +164,40 @@ export function Results({ data, mode }) {
         </div>
       )}
 
+      {/* Generated jewelry image */}
+{mode === 'design' && data.image_url && (
+  <div style={{ marginBottom: '24px' }}>
+    <p style={{
+      fontSize: '10px', letterSpacing: '2px', textTransform: 'uppercase',
+      color: '#7EB3E8', fontWeight: 500, marginBottom: '14px',
+    }}>🖼️ Your Design</p>
+    <div style={{
+      borderRadius: '16px',
+      overflow: 'hidden',
+      border: '1px solid rgba(126,179,232,0.2)',
+      background: 'rgba(126,179,232,0.04)',
+    }}>
+      <img
+        src={data.image_url}
+        alt="Generated jewelry design"
+        style={{
+          width: '100%',
+          display: 'block',
+          borderRadius: '16px',
+        }}
+        onError={e => {
+          e.target.parentElement.style.display = 'none';
+        }}
+      />
+    </div>
+  </div>
+)}
+
+{/* Bead pattern visual */}
+{mode === 'design' && data.colour_palette?.length > 0 && (
+  <BeadPattern palette={data.colour_palette} />
+)}
+
       {/* Bead pattern visual */}
       {mode === 'design' && data.colour_palette?.length > 0 && (
         <BeadPattern palette={data.colour_palette} />

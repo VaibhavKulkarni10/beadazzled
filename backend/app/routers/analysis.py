@@ -44,6 +44,7 @@ async def analyse(
             "skin":           skin_data,
             "recommendation": recommendation["recommendation"],
             "image_url":      image_url,
+            "colour_palette": colours,
         }
 
     except ValueError as e:
