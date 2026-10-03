@@ -193,11 +193,6 @@ export function Results({ data, mode }) {
   </div>
 )}
 
-{/* Bead pattern visual */}
-{mode === 'design' && data.colour_palette?.length > 0 && (
-  <BeadPattern palette={data.colour_palette} />
-)}
-
       {/* Bead pattern visual */}
       {mode === 'design' && data.colour_palette?.length > 0 && (
         <BeadPattern palette={data.colour_palette} />
