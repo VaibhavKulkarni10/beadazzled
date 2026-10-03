@@ -16,17 +16,15 @@ def generate_jewelry_image(
     try:
         prompt = build_image_prompt(recommendation, face_shape, skin_tone, jewelry_type)
 
-        model = genai.GenerativeModel("gemini-2.0-flash-preview-image-generation")
+        model = genai.GenerativeModel("gemini-2.0-flash-exp-image-generation")
 
         response = model.generate_content(
-            prompt,
-            generation_config=genai.GenerationConfig(
-                response_modalities=["image", "text"]
-            )
+            contents=prompt,
+            generation_config={"response_modalities": ["Text", "Image"]}
         )
 
         for part in response.candidates[0].content.parts:
-            if part.inline_data is not None:
+            if hasattr(part, 'inline_data') and part.inline_data is not None:
                 image_bytes = part.inline_data.data
                 base64_image = base64.b64encode(image_bytes).decode('utf-8')
                 mime_type = part.inline_data.mime_type or "image/png"
@@ -41,7 +39,6 @@ def generate_jewelry_image(
 
 def build_image_prompt(recommendation: str, face_shape: str, skin_tone: str, jewelry_type: str) -> str:
     snippet = recommendation[:300] if recommendation else ""
-
     prompt = (
         f"Professional product photography of a complete handmade beaded {jewelry_type} "
         f"laid flat on a clean white background, studio lighting, macro shot showing all beads clearly, "
@@ -50,5 +47,4 @@ def build_image_prompt(recommendation: str, face_shape: str, skin_tone: str, jew
         f"high quality, detailed, elegant jewelry store style photo, "
         f"show the entire {jewelry_type} piece in full"
     )
-
     return prompt[:500]
