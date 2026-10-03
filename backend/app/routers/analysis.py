@@ -1,11 +1,23 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException, Form
 from typing import Optional
+import re
 from app.services.face import detect_face_shape
 from app.services.skin import detect_skin_tone
 from app.services.claude import get_design_recommendation, get_tryon_feedback
 from app.services.image import generate_jewelry_image
 
 router = APIRouter()
+
+def extract_hex_colours(text: str) -> list:
+    hex_pattern = r'#([A-Fa-f0-9]{6})'
+    hex_codes = re.findall(hex_pattern, text)
+    seen = set()
+    unique = []
+    for code in hex_codes:
+        if code.upper() not in seen:
+            seen.add(code.upper())
+            unique.append(f"#{code.upper()}")
+    return unique[:6]
 
 @router.post("/analyse")
 async def analyse(
@@ -30,7 +42,8 @@ async def analyse(
             jewelry_type=jewelry_type,
         )
 
-        # Just build the URL — frontend loads the image directly
+        colours = extract_hex_colours(recommendation["recommendation"])
+
         image_url = generate_jewelry_image(
             recommendation=recommendation["recommendation"],
             face_shape=face_data["face_shape"],
@@ -72,6 +85,8 @@ async def tryon(
             original_recommendation=original_recommendation,
         )
 
+        colours = extract_hex_colours(feedback["feedback"])
+
         image_url = generate_jewelry_image(
             recommendation=feedback["feedback"],
             face_shape=face_shape,
@@ -79,9 +94,10 @@ async def tryon(
         )
 
         return {
-            "success":   True,
-            "feedback":  feedback["feedback"],
-            "image_url": image_url,
+            "success":        True,
+            "feedback":       feedback["feedback"],
+            "image_url":      image_url,
+            "colour_palette": colours,
         }
 
     except ValueError as e:
